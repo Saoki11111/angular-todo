@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-task-list-item',
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./task-list-item.component.scss']
 })
 export class TaskListItemComponent {
+  @Input() task: any;
 
   isOverdue(task: any) {
     return !task.done && task.deadline < (new Date()).setHours(0, 0, 0, 0);
