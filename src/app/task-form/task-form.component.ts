@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-task-form',
@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent {
+  @Output() addTask = new EventEmitter();
 
+  newTask = {
+    title: '',
+    deadline: new Date(),
+  };
+
+  submit() {
+    this.addTask.emit({title: this.newTask.title, done: false, deadline: new Date(this.newTask.deadline)});
+    this.newTask = {
+      title: '',
+      deadline: new Date(),
+    };
+  }
 }
