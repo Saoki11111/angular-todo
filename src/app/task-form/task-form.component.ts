@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-form',
@@ -6,18 +7,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./task-form.component.scss']
 })
 export class TaskFormComponent {
-  @Output() addTask = new EventEmitter();
+  @Output() addTask = new EventEmitter<Task>();
 
   newTask = {
     title: '',
-    deadline: new Date(),
+    deadline: null,
   };
 
-  submit() {
-    this.addTask.emit({title: this.newTask.title, done: false, deadline: new Date(this.newTask.deadline)});
+  submit(): void {
+    this.addTask.emit({
+      title: this.newTask.title,
+      done: false,
+      deadline: this.newTask.deadline ? new Date(this.newTask.deadline) : null,
+    });
+
     this.newTask = {
       title: '',
-      deadline: new Date(),
+      deadline: null,
     };
   }
 }

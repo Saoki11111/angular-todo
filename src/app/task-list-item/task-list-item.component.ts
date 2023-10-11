@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-list-item',
@@ -6,9 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./task-list-item.component.scss']
 })
 export class TaskListItemComponent {
-  @Input() task: any;
+  @Input() task: Task;
 
-  isOverdue(task: any) {
-    return !task.done && task.deadline < (new Date()).setHours(0, 0, 0, 0);
+  isOverdue(task: Task): boolean {
+    return !task.done && task.deadline && task.deadline.getTime() < (new Date()).setHours(0, 0, 0, 0);
   }
 }
